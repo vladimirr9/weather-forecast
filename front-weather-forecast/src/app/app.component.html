@@ -1,0 +1,24 @@
+<div  class="content-container" [style.background-image]="backgroundGradient">
+  <div *ngIf="displayName">{{displayName}}</div>
+  <app-search-bar (searchResultsEvent)="updateTemperatures($event)"></app-search-bar>
+  <div class="date-interval" *ngIf="searchDone">
+    {{today | date:'MMM'}}
+    {{today | date:'d'}}
+    <span *ngIf="!isSameYear(today, nextWeek)">{{today | date:'yyy'}}</span>
+    <span> - </span>
+    <span *ngIf="!isSameMonth(today, nextWeek)">{{nextWeek | date:'MMM'}}</span>
+    {{nextWeek | date:'d'}}
+    {{nextWeek | date:'yyy'}}
+  </div>
+  <div class="avg-temp" *ngIf="searchDone">
+    <span class="avg-temp-num">{{tempAverage | number: '1.0-0'}}</span>
+    <span class="celcius-symbol">℃</span>
+  </div>
+  <div class="day-temperature-list">
+    <div *ngFor="let item of temperatures">
+      <app-day-temperature-display [temperature]="item.temperature" [dayInWeek]="item.day"></app-day-temperature-display>
+    </div>
+
+  </div>
+
+</div>

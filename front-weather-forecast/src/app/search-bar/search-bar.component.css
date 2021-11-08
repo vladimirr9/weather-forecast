@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px 60px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+
+}
+
+ng-select {
+  width: 100px;
+}
+.code-value {
+  margin-left: 4px;
+  font-weight: 650;
+}
+.flag {
+  border: 1px solid black;
+  border-radius: 3px;
+  width: 18px;
+}
+.search {
+  position:relative;
+  border-radius: 1px;
+  text-align: center;
+  padding:0 0 0 20px;
+  margin:0 20px;
+  width: 300px;
+}
+
+.ng-select.custom {
+  min-height: 50px;
+}
+.ng-select.custom ::ng-deep .ng-select-container  {
+  min-height: 50px;
+}
+
+.input {
+  height:50px;
+  margin:0;
+  padding-right: 30px;
+  width: 100%;
+}
+.mag-glass {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 20px;
+  position: absolute;
+  right: 3px;
+  top: 6px;
+  z-index: 2;
+}

@@ -1,0 +1,31 @@
+.content-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+* {
+  margin: 0px;
+  max-width:none;
+}
+.avg-temp {
+  display: flex;
+}
+.avg-temp-num {
+  font-size: 70px;
+}
+.celcius-symbol {
+  margin-top: 20px;
+  font-size: 22px;
+}
+.day-temperature-list {
+ display: flex;
+ flex-direction: row;
+}
+:host {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,18 @@
+<div class="container">
+  <ng-select class="custom" [(ngModel)]="selectedCode" [clearable]="false" notFoundText="" [searchFn]="customSearchFn">
+    <ng-container *ngFor="let code of countryCodes" >
+    <ng-option *ngIf="hasFlag(code)"  [value]="code">
+      <span>
+        <img class="flag" alt="" [src]="getFlag(code)" />
+        <span class="code-value">{{ code }}</span>
+      </span>
+    </ng-option>
+  </ng-container>
+  </ng-select>
+  <form (submit)="onSubmit()">
+    <div class="search">
+      <input type="text" class="input" [(ngModel)]="searchTerm" name="searchTerm" placeholder="Please enter your location">
+      <button class="mag-glass"><i class="fa fa-search"></i></button>
+    </div>
+  </form>
+</div>

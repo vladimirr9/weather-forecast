@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 5px 10px;
+}
+
+.avg-temp {
+  display: flex;
+}
+.day-in-week {
+  color: #51657b;
+}
+.avg-temp-num {
+  font-size: 18px;
+}
+.celcius-symbol {
+  margin-top: 2px;
+  font-size: 12px;
+}
