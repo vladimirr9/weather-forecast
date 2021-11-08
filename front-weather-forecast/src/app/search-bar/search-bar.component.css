@@ -2,19 +2,19 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 20px 60px;
+  padding: 20px 20px;
   background-color: white;
   border-radius: 20px;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
-
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
 }
 
 ng-select {
   width: 100px;
 }
 .code-value {
+  font-family: "Poppins", sans-serif;
   margin-left: 4px;
-  font-weight: 650;
+  font-weight: 600;
 }
 .flag {
   border: 1px solid black;
@@ -22,24 +22,24 @@ ng-select {
   width: 18px;
 }
 .search {
-  position:relative;
+  position: relative;
   border-radius: 1px;
   text-align: center;
-  padding:0 0 0 20px;
-  margin:0 20px;
-  width: 300px;
+  padding: 0 0 0 10px;
+  width: 400px;
 }
 
 .ng-select.custom {
   min-height: 50px;
 }
-.ng-select.custom ::ng-deep .ng-select-container  {
+.ng-select.custom ::ng-deep .ng-select-container {
   min-height: 50px;
 }
 
 .input {
-  height:50px;
-  margin:0;
+  font-family: "Poppins", sans-serif;
+  height: 50px;
+  margin: 0;
   padding-right: 30px;
   width: 100%;
 }
@@ -47,10 +47,30 @@ ng-select {
   background: transparent;
   border: none;
   cursor: pointer;
-  display: inline-block;
-  font-size: 20px;
   position: absolute;
-  right: 3px;
-  top: 6px;
+  max-width: 24px;
+  right: 8px;
+  top: 12px;
+  opacity: 1;
   z-index: 2;
+}
+.search:placeholder-shown .mag-glass {
+  opacity: 0.5;
+}
+
+.cloud-icon {
+  width: 40px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .search {
+    margin-top: 15px;
+    width: 250px;
+  }
 }

@@ -9,8 +9,8 @@ export class DayTemperatureDisplayComponent implements OnInit {
 
   constructor() { }
 
-  @Input() dayInWeek : string = ""
-  @Input() temperature : number = 0
+  @Input() dayInWeek: string = ""
+  @Input() temperature: number = 0
   ngOnInit(): void {
   }
 

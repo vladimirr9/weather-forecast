@@ -1,4 +1,6 @@
 export interface DayTemperature {
-  day: string,
+  day: string
   temperature: number
+  minTemp: number
+  maxTemp: number
 }

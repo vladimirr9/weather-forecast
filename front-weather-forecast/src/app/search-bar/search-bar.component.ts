@@ -15,44 +15,44 @@ export class SearchBarComponent {
 
   constructor(private locationService: LocationService, private tempService: TemperatureService) { }
 
-  private days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  public countryCodes = Object.keys(countries.getAlpha2Codes());
-  selectedCode : string = ""
-  searchTerm : string = ""
-  loading : boolean = false
+  countryCodes = Object.keys(countries.getAlpha2Codes());
+  cloudIconPath = "/assets/img/climate-icon.svg"
+  loadingPath = "/assets/img/loading-circle.gif"
+  magGlassPath = "/assets/img/search.svg"
+  selectedCode: string = ""
+  searchTerm: string = ""
+  loading: boolean = false
+  error: boolean = false
+  //TODO: ERROR HANDLING
 
   @Output() searchResultsEvent = new EventEmitter<SearchResultsDTO>();
-  temperatures : DayTemperature[] = []
 
   customSearchFn(term: string, item: any) {
     term = term.toLocaleLowerCase();
     return item.toLocaleLowerCase().indexOf(term) > -1
-   }
+  }
 
 
-  getFlag(code: string) : string {
+  getFlag(code: string): string {
     return `http://purecatamphetamine.github.io/country-flag-icons/3x2/${code}.svg`
   }
-  hasFlag(code: string) : boolean {
+  //TODO: properly relocate links to assets and implement a form of lazy loading
+  hasFlag(code: string): boolean {
     return hasFlag(code)
   }
   onSubmit() {
-    if (this.loading) {
+    if (this.loading || !this.selectedCode) {
       return
     }
     this.loading = true
-    this.temperatures = []
+    this.error = false
 
-    this.tempService.getTemp7Days(this.selectedCode, this.searchTerm).then((data:any) => {
-      data.daily.pop() //OpenWeather API returns current day AND 7 additional days, 8 in total
-      for (let day of data.daily) {
-        let dayInWeek = this.days[new Date(day.dt * 1000).getDay()]
-        this.temperatures.push({day: dayInWeek, temperature: day.temp.day})
-      }
-      this.searchResultsEvent.emit({dayTemperatures: this.temperatures, displayName: data.displayName})
+    this.tempService.getTemp7Days(this.selectedCode, this.searchTerm).then((data: SearchResultsDTO) => {
+      this.searchResultsEvent.emit({ dayTemperatures: data.dayTemperatures, displayName: data.displayName })
       this.loading = false
     }, () => {
       this.loading = false
+      this.error = true
     })
   }
 }

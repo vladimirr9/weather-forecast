@@ -8,9 +8,9 @@ describe('DayTemperatureDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DayTemperatureDisplayComponent ]
+      declarations: [DayTemperatureDisplayComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
