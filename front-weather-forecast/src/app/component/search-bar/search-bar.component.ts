@@ -76,7 +76,7 @@ export class SearchBarComponent implements OnInit {
 
   private activateLiveReload() {
     interval(1000 * 60 * 15).subscribe(x => {
-      if (this.searchDone) {
+      if (this.searchDone && !this.loading) {
         this.getAndEmit(this.lastUsedCode, this.lastUsedSearchTerm);
       }
     });
