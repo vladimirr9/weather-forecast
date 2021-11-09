@@ -13,6 +13,7 @@ export class WeatherForecastComponent {
 
   constructor(private colorService: ColorService, private tempService: TemperatureService) { }
 
+  //TODO: ensure app isn't displayed while its loading and add a loading spinner in its stead
   temperatures: DayTemperature[] = []
   tempAverage: number = 0
   searchDone: boolean = false

@@ -17,7 +17,7 @@ export class TemperatureService {
   constructor(private locationService: LocationService, private http: HttpClient) { }
 
   getTemp7Days(countryCode: string, city: string): Promise<any> {
-    let tmp = new Promise((resolve, reject) => {
+    let returnPromise = new Promise((resolve, reject) => {
       this.locationService.getCoords(countryCode, city).subscribe((data: any) => {
         let latitude = data[0].lat
         let longitude = data[0].lon
@@ -44,7 +44,7 @@ export class TemperatureService {
         reject(err)
       })
     })
-    return tmp
+    return returnPromise
   }
 
   getAverage(temperatures: DayTemperature[]): number {

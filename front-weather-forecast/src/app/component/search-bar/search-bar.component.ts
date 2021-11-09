@@ -1,11 +1,11 @@
-import { Component, EventEmitter, ModuleWithComponentFactories, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, ModuleWithComponentFactories, OnDestroy, OnInit, Output } from '@angular/core';
 import * as countries from 'i18n-iso-countries'
 import { hasFlag } from 'country-flag-icons'
 import { LocationService } from '../../service/location.service';
 import { TemperatureService } from '../../service/temperature.service';
 import { DayTemperature } from '../../model/DayTemperature';
 import { SearchResultsDTO } from '../../dto/SearchResultsDTO';
-import { interval, Observable } from 'rxjs';
+import { interval, Observable, Subscriber, Subscription } from 'rxjs';
 import { runInThisContext } from 'vm';
 
 @Component({
@@ -13,9 +13,12 @@ import { runInThisContext } from 'vm';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
 
   constructor(private locationService: LocationService, private tempService: TemperatureService) { }
+  ngOnDestroy(): void {
+    this.liveReloadSub.unsubscribe()
+  }
   ngOnInit(): void {
     this.activateLiveReload()
   }
@@ -32,6 +35,7 @@ export class SearchBarComponent implements OnInit {
   searchDone: boolean = false
   lastUsedCode : string = ""
   lastUsedSearchTerm: string = ""
+  liveReloadSub!: Subscription;
   //TODO: ERROR HANDLING
 
   @Output() searchResultsEvent = new EventEmitter<SearchResultsDTO>();
@@ -75,7 +79,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   private activateLiveReload() {
-    interval(1000 * 60 * 15).subscribe(x => {
+    this.liveReloadSub = interval(1000 * 60 * 15).subscribe(x => {
       if (this.searchDone && !this.loading) {
         this.getAndEmit(this.lastUsedCode, this.lastUsedSearchTerm);
       }
