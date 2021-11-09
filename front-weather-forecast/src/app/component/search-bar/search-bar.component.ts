@@ -5,15 +5,21 @@ import { LocationService } from '../../service/location.service';
 import { TemperatureService } from '../../service/temperature.service';
 import { DayTemperature } from '../../model/DayTemperature';
 import { SearchResultsDTO } from '../../dto/SearchResultsDTO';
+import { interval, Observable } from 'rxjs';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit {
 
   constructor(private locationService: LocationService, private tempService: TemperatureService) { }
+  ngOnInit(): void {
+    this.activateLiveReload()
+  }
+
 
   countryCodes = Object.keys(countries.getAlpha2Codes());
   cloudIconPath = "/assets/img/climate-icon.svg"
@@ -23,6 +29,9 @@ export class SearchBarComponent {
   searchTerm: string = ""
   loading: boolean = false
   error: boolean = false
+  searchDone: boolean = false
+  lastUsedCode : string = ""
+  lastUsedSearchTerm: string = ""
   //TODO: ERROR HANDLING
 
   @Output() searchResultsEvent = new EventEmitter<SearchResultsDTO>();
@@ -44,15 +53,32 @@ export class SearchBarComponent {
     if (this.loading || !this.selectedCode) {
       return
     }
+
     this.loading = true
     this.error = false
 
-    this.tempService.getTemp7Days(this.selectedCode, this.searchTerm).then((data: SearchResultsDTO) => {
-      this.searchResultsEvent.emit({ dayTemperatures: data.dayTemperatures, displayName: data.displayName })
-      this.loading = false
+    this.getAndEmit(this.selectedCode, this.searchTerm);
+  }
+
+  private getAndEmit(selectedCode: string, searchTerm: string) {
+    this.tempService.getTemp7Days(selectedCode, searchTerm).then((data: SearchResultsDTO) => {
+      this.searchResultsEvent.emit({ dayTemperatures: data.dayTemperatures, displayName: data.displayName });
+      this.loading = false;
+      this.lastUsedCode = selectedCode
+      this.lastUsedSearchTerm = searchTerm
+      this.searchDone = true;
+
     }, () => {
-      this.loading = false
-      this.error = true
-    })
+      this.loading = false;
+      this.error = true;
+    });
+  }
+
+  private activateLiveReload() {
+    interval(1000 * 60 * 15).subscribe(x => {
+      if (this.searchDone) {
+        this.getAndEmit(this.lastUsedCode, this.lastUsedSearchTerm);
+      }
+    });
   }
 }
