@@ -8,19 +8,19 @@
   display: flex;
 }
 .day-in-week {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #51657b;
 }
 .avg-temp-num {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: white;
   font-size: 22px;
 }
 .celcius-symbol {
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-top: 2px;
   font-size: 12px;
 }

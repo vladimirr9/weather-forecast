@@ -61,7 +61,8 @@ ng-select {
 .cloud-icon {
   width: 40px;
   margin-bottom: 5px;
-  margin-right: 10px;
+  margin-right: 13px;
+  margin-left: 5px;
 }
 
 @media screen and (max-width: 450px) {
@@ -71,6 +72,11 @@ ng-select {
   }
   .search {
     margin-top: 15px;
-    width: 250px;
+    width: 270px;
+  }
+
+  .cloud-icon {
+    margin-right: 0px;
+    margin-left: 0px;
   }
 }

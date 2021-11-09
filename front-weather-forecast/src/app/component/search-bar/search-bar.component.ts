@@ -1,10 +1,10 @@
 import { Component, EventEmitter, ModuleWithComponentFactories, OnInit, Output } from '@angular/core';
 import * as countries from 'i18n-iso-countries'
 import { hasFlag } from 'country-flag-icons'
-import { LocationService } from '../service/location.service';
-import { TemperatureService } from '../service/temperature.service';
-import { DayTemperature } from '../model/DayTemperature';
-import { SearchResultsDTO } from '../dto/SearchResultsDTO';
+import { LocationService } from '../../service/location.service';
+import { TemperatureService } from '../../service/temperature.service';
+import { DayTemperature } from '../../model/DayTemperature';
+import { SearchResultsDTO } from '../../dto/SearchResultsDTO';
 
 @Component({
   selector: 'app-search-bar',
