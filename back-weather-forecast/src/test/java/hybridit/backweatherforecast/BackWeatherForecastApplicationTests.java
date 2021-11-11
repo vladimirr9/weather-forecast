@@ -5,9 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class BackWeatherForecastApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
+    //TODO: write more, thorough integration tests
+    @Test
+    void contextLoads() {
+    }
 
 }
