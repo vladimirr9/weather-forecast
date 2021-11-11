@@ -1,4 +1,4 @@
-package hybridit.backweatherforecast.dto;
+package hybridit.backweatherforecast.dto.openweather;
 
 public class CityDTO {
     private String name;

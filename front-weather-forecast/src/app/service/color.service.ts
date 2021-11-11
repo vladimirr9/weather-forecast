@@ -7,8 +7,6 @@ export class ColorService {
 
   constructor() { }
 
-
-
   private percentColors = [
     { pct: 0.0, color: { r: 0x16, g: 0x30, b: 0x79 } },
     { pct: 0.25, color: { r: 0x49, g: 0x9e, b: 0xe5 } },

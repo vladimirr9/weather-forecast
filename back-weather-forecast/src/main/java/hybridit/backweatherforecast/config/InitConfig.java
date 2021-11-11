@@ -1,6 +1,6 @@
 package hybridit.backweatherforecast.config;
 
-import hybridit.backweatherforecast.dto.OpenWeatherResponseDTO;
+import hybridit.backweatherforecast.dto.openweather.OpenWeatherResponseDTO;
 import hybridit.backweatherforecast.model.City;
 import hybridit.backweatherforecast.model.TemperatureReading;
 import hybridit.backweatherforecast.service.APIKeyService;
@@ -30,13 +30,13 @@ public class InitConfig {
 
     // for loading initial data into the database
     @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+    public CommandLineRunner run(RestTemplate restTemplate) {
         return args -> {
             String[] cityNames = {"Utrecht", "Amsterdam", "Eindhoven"};
             for (var cityName : cityNames) {
-                String URL = String.format(OPEN_WEATHER_API_URL_TEMPLATE, cityName, apiKeyService.getOpenWeatherKey());
+                String url = String.format(OPEN_WEATHER_API_URL_TEMPLATE, cityName, apiKeyService.getOpenWeatherKey());
                 //TODO: validation for OpenWeatherResponse
-                OpenWeatherResponseDTO response = restTemplate.getForObject(URL, OpenWeatherResponseDTO.class);
+                OpenWeatherResponseDTO response = restTemplate.getForObject(url, OpenWeatherResponseDTO.class);
                 City city = new City(response.getCity().getName());
                 City persistedCity = cityService.save(city);
                 for (var temperatureReadingDTO : response.getList()) {

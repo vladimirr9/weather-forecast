@@ -8,6 +8,8 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
 import { HttpClientModule } from '@angular/common/http';
 import { DayTemperatureDisplayComponent } from './component/day-temperature-display/day-temperature-display.component';
 import { WeatherForecastComponent } from './component/weather-forecast/weather-forecast.component';
+import { TemperatureService } from './service/temperature.service';
+import { LocationService } from './service/location.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import { WeatherForecastComponent } from './component/weather-forecast/weather-f
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [TemperatureService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchResultsDTO } from 'src/app/dto/SearchResultsDTO';
 import { DayTemperature } from 'src/app/model/DayTemperature';
 import { ColorService } from 'src/app/service/color.service';
+import { LocationService } from 'src/app/service/location.service';
 import { TemperatureService } from 'src/app/service/temperature.service';
 
 @Component({
@@ -9,9 +10,13 @@ import { TemperatureService } from 'src/app/service/temperature.service';
   templateUrl: './weather-forecast.component.html',
   styleUrls: ['./weather-forecast.component.css']
 })
-export class WeatherForecastComponent {
+export class WeatherForecastComponent implements OnInit {
 
-  constructor(private colorService: ColorService, private tempService: TemperatureService) { }
+  constructor(private colorService: ColorService, private tempService: TemperatureService, private locationService : LocationService) { }
+  ngOnInit(): void {
+    this.locationService.getKey()
+    this.tempService.getKey()
+  }
 
   //TODO: ensure app isn't displayed while its loading and add a loading spinner in its stead
   temperatures: DayTemperature[] = []

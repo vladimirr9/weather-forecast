@@ -1,17 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import * as countries from 'i18n-iso-countries'
+import {config} from 'src/shared'
+import { KeyDTO } from '../dto/KeyDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
-
+  private keyPath : string = "/keys/location-key";
   LocationIqURL: string = "https://eu1.locationiq.com/v1/search.php"
-  // key should NOT be stored like this, but as a free key and for this use-case it should suffice
-  key: string = "pk.f9971de5a5f0723a1b85387f671c4857"
-  constructor(private http: HttpClient) { }
-
+  key: string = ""
+  constructor(private http: HttpClient) {
+   }
+  getKey(): void {
+    this.http.get<KeyDTO>(`${config.baseUrl}${this.keyPath}`).subscribe((data) => {
+      this.key = data.key
+    })
+  }
   getCoords(countryCode: string, city: string) {
     countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
     let country = countries.getName(countryCode, "en");

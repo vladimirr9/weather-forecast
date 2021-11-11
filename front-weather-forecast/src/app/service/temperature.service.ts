@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { DayTemperature } from '../model/DayTemperature';
 import { LocationService } from './location.service';
+import { config } from 'src/shared';
+import { KeyDTO } from '../dto/KeyDTO';
 
 
 @Injectable({
@@ -11,10 +13,16 @@ export class TemperatureService {
 
   private days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   OpenWeatherURL: string = "https://api.openweathermap.org/data/2.5/onecall"
-  // key should NOT be stored like this, but as a free key and for this use-case it should suffice
-  appid: string = "02e87ff3683c0f032eb705da30b5bf18"
+  private keyPath = "/keys/weather-key"
+  appid: string = ""
   exclude: string = "current,minutely,hourly,alerts"
   constructor(private locationService: LocationService, private http: HttpClient) { }
+
+  getKey(): void {
+    this.http.get<KeyDTO>(`${config.baseUrl}${this.keyPath}`).subscribe((data) => {
+      this.appid = data.key
+    })
+  }
 
   getTemp7Days(countryCode: string, city: string): Promise<any> {
     let returnPromise = new Promise((resolve, reject) => {
